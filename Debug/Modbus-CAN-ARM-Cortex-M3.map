@@ -1,0 +1,413 @@
+******************************************************************************
+                  TI ARM Linker Unix v15.12.1                  
+******************************************************************************
+>> Linked Fri May 26 15:46:47 2017
+
+OUTPUT FILE NAME:   <Modbus-CAN-ARM-Cortex-M3.out>
+ENTRY POINT SYMBOL: "_c_int00"  address: 00002075
+
+
+MEMORY CONFIGURATION
+
+         name            origin    length      used     unused   attr    fill
+----------------------  --------  ---------  --------  --------  ----  --------
+  RAM                   00000020   ffffffe0  00003989  ffffc657  RWIX
+
+
+SEGMENT ALLOCATION MAP
+
+run origin  load origin   length   init length attrs members
+----------  ----------- ---------- ----------- ----- -------
+00000020    00000020    000022fc   000022fc    r-x
+  00000020    00000020    000022fc   000022fc    r-x .text
+0000231c    0000231c    00001538   00000000    rw-
+  0000231c    0000231c    00001515   00000000    rw- .bss
+  00003834    00003834    00000020   00000000    rw- .data
+00003854    00003854    00000014   00000014    r--
+  00003854    00003854    00000014   00000014    r-- .const
+00003868    00003868    00000100   00000000    rw-
+  00003868    00003868    00000100   00000000    rw- .stack
+00003968    00003968    00000044   00000044    r--
+  00003968    00003968    00000044   00000044    r-- .cinit
+
+
+SECTION ALLOCATION MAP
+
+ output                                  attributes/
+section   page    origin      length       input sections
+--------  ----  ----------  ----------   ----------------
+.text      0    00000020    000022fc     
+                  00000020    000001f0     can.obj (.text:CANMessageSet)
+                  00000210    0000018c     sysctl.obj (.text:SysCtlClockPllConfig)
+                  0000039c    0000017c     maintest_slave.obj (.text:init)
+                  00000518    00000160     Modbus_CAN.obj (.text:Modbus_CAN_FixOutput)
+                  00000678    00000148     sysctl.obj (.text:SysCtlClockDividersSet)
+                  000007c0    00000118     Modbus_app.obj (.text:Modbus_App_Read_Write_M_Registers)
+                  000008d8    000000f0     Modbus_app.obj (.text:Modbus_App_Read_Write_M_Registers_Check)
+                  000009c8    000000ec     Modbus_app.obj (.text:Modbus_App_Read_Coils)
+                  00000ab4    000000ec     Modbus_app.obj (.text:Modbus_App_Read_D_Inputs)
+                  00000ba0    000000e2     can.obj (.text:CANInit)
+                  00000c82    00000002     rtsv7M3_T_le_eabi.lib : mpu_init.obj (.text)
+                  00000c84    000000d8     Modbus_app.obj (.text:Modbus_App_Write_M_Coils)
+                  00000d5c    000000d8     Modbus_app.obj (.text:Modbus_App_Write_M_Coils_Check)
+                  00000e34    000000c4     Modbus_app.obj (.text:Modbus_App_Mask_Write_Register)
+                  00000ef8    000000b8     Modbus_app.obj (.text:Modbus_App_Manage_Request)
+                  00000fb0    000000b0     Modbus_app.obj (.text:Modbus_App_Check_Request_Data)
+                  00001060    000000ac     interrupt.obj (.text:IntEnable)
+                  0000110c    000000ac     Modbus_app.obj (.text:Modbus_App_Write_M_Registers)
+                  000011b8    000000a6     gpio.obj (.text:GPIOPadConfigSet)
+                  0000125e    00000002     rtsv7M3_T_le_eabi.lib : startup.obj (.text)
+                  00001260    000000a4     Modbus_CAN.obj (.text:Modbus_CAN_Init)
+                  00001304    0000009c     Modbus_app.obj (.text:Modbus_App_Read_H_Registers)
+                  000013a0    0000009c     Modbus_app.obj (.text:Modbus_App_Read_I_Registers)
+                  0000143c    0000009c     rtsv7M3_T_le_eabi.lib : memcpy_t2.obj (.text)
+                  000014d8    00000098     Modbus_app.obj (.text:Modbus_App_Write_M_Registers_Check)
+                  00001570    00000094     sysctl.obj (.text:SysCtlClockConfigGet)
+                  00001604    00000092     can.obj (.text:CANBitTimingSet)
+                  00001696    00000002     --HOLE-- [fill = 0]
+                  00001698    00000090     sysctl.obj (.text:SysCtlXPllClockDividerSet)
+                  00001728    00000088     Modbus_app.obj (.text:Modbus_Slave_Init)
+                  000017b0    00000084     Modbus_app.obj (.text:Modbus_App_Process_Action)
+                  00001834    00000084     Modbus_app.obj (.text:Modbus_App_Write_Coil)
+                  000018b8    0000007c     Modbus_CAN.obj (.text:Modbus_CAN_SetBitRate)
+                  00001934    0000007a     rtsv7M3_T_le_eabi.lib : memset_t2.obj (.text)
+                  000019ae    00000002     --HOLE-- [fill = 0]
+                  000019b0    00000078     Modbus_app.obj (.text:Modbus_App_Read_Coils_Check)
+                  00001a28    00000078     Modbus_app.obj (.text:Modbus_App_Read_D_Inputs_Check)
+                  00001aa0    00000074     Modbus_app.obj (.text:Modbus_App_Read_H_Registers_Check)
+                  00001b14    00000074     Modbus_app.obj (.text:Modbus_App_Read_I_Registers_Check)
+                  00001b88    00000074     Modbus_CAN.obj (.text:Modbus_CAN_ReceptionConfiguration)
+                  00001bfc    00000070     Modbus_app.obj (.text:Modbus_App_Write_Coil_Check)
+                  00001c6c    00000070     rtsv7M3_T_le_eabi.lib : autoinit.obj (.text)
+                  00001cdc    0000006a                           : copy_decompress_rle.obj (.text)
+                  00001d46    00000002     --HOLE-- [fill = 0]
+                  00001d48    00000068     Modbus_app.obj (.text:Modbus_App_Write_Register)
+                  00001db0    00000060     Modbus_app.obj (.text:Modbus_App_Write_Register_Check)
+                  00001e10    0000005c     gpio.obj (.text:GPIODirModeSet)
+                  00001e6c    00000054     rtsv7M3_T_le_eabi.lib : exit.obj (.text)
+                  00001ec0    00000050     Modbus_CAN.obj (.text:Modbus_CAN_Controller)
+                  00001f10    0000004c     sysctl.obj (.text:SysCtlClockConfigSet)
+                  00001f5c    0000004c     rtsv7M3_T_le_eabi.lib : cpy_tbl.obj (.text)
+                  00001fa8    00000048     sysctl.obj (.text:SysCtlPeripheralEnable)
+                  00001ff0    00000044     Modbus_app.obj (.text:Modbus_App_Mask_Write_Register_Check)
+                  00002034    00000040     Modbus_CAN.obj (.text:Modbus_CAN_to_App)
+                  00002074    00000040     rtsv7M3_T_le_eabi.lib : boot.obj (.text)
+                  000020b4    0000003a     can.obj (.text:CANDataRegWrite)
+                  000020ee    00000002     --HOLE-- [fill = 0]
+                  000020f0    00000038     sysctl.obj (.text:SysCtlPeripheralIsEnabled)
+                  00002128    00000022     gpio.obj (.text:GPIOPinTypeCAN)
+                  0000214a    00000022     gpio.obj (.text:GPIOPinTypeGPIOOutput)
+                  0000216c    00000020     gpio.obj (.text:GPIOPinWrite)
+                  0000218c    00000020     Modbus_app.obj (.text:Modbus_App_Receive_Char)
+                  000021ac    00000018     can.obj (.text:CANIntEnable)
+                  000021c4    00000018     Modbus_app.obj (.text:Modbus_App_L_Msg_Set)
+                  000021dc    00000018     Modbus_app.obj (.text:Modbus_App_Send)
+                  000021f4    00000018     Modbus_CAN.obj (.text:Modbus_CAN_Error_Management)
+                  0000220c    00000018     Modbus_CAN.obj (.text:Modbus_SetMainState)
+                  00002224    00000018     maintest_slave.obj (.text:main)
+                  0000223c    00000018     rtsv7M3_T_le_eabi.lib : args_main.obj (.text)
+                  00002254    00000016     can.obj (.text:CANEnable)
+                  0000226a    00000002     --HOLE-- [fill = 0]
+                  0000226c    00000014     Modbus_CAN.obj (.text:ledOff)
+                  00002280    00000014     Modbus_CAN.obj (.text:ledOn)
+                  00002294    00000014     rtsv7M3_T_le_eabi.lib : _lock.obj (.text)
+                  000022a8    00000012     watchdog.obj (.text:WatchdogReloadSet)
+                  000022ba    00000012     watchdog.obj (.text:WatchdogRunning)
+                  000022cc    00000010     Modbus_CAN.obj (.text:Modbus_CAN_Delay)
+                  000022dc    0000000e     rtsv7M3_T_le_eabi.lib : copy_decompress_none.obj (.text:decompress:none)
+                  000022ea    00000002     --HOLE-- [fill = 0]
+                  000022ec    0000000c     Modbus_CAN.obj (.text:Modbus_CAN_BroadCast_Get)
+                  000022f8    0000000c     Modbus_CAN.obj (.text:Modbus_GetMainState)
+                  00002304    00000008     Modbus_app.obj (.text:Modbus_Slave_Communication)
+                  0000230c    00000006     sysctl.obj (.text:SysCtlDelay)
+                  00002312    00000006     rtsv7M3_T_le_eabi.lib : copy_decompress_rle.obj (.text:decompress:rle24)
+                  00002318    00000004                           : pre_init.obj (.text)
+
+.bss       0    0000231c    00001515     UNINITIALIZED
+                  0000231c    000007d0     maintest_slave.obj (.bss:coils_data)
+                  00002aec    000007d0     maintest_slave.obj (.bss:discrete_inputs_data)
+                  000032bc    00000100     Modbus_app.obj (.bss:Modbus_App_Msg)
+                  000033bc    00000100     Modbus_app.obj (.bss:Modbus_App_Response_pdu)
+                  000034bc    00000100     Modbus_CAN.obj (.bss:input_pdu)
+                  000035bc    000000fc     maintest_slave.obj (.bss:holding_registers_data)
+                  000036b8    000000fc     maintest_slave.obj (.bss:input_registers_data)
+                  000037b4    00000020     Modbus_app.obj (.bss)
+                  000037d4    00000014     Modbus_CAN.obj (.bss:RxObject)
+                  000037e8    00000014     Modbus_CAN.obj (.bss:TxObject)
+                  000037fc    00000010     maintest_slave.obj (.bss)
+                  0000380c    00000010     Modbus_CAN.obj (.bss:modbus_canbit)
+                  0000381c    0000000c     Modbus_CAN.obj (.bss)
+                  00003828    00000008     Modbus_CAN.obj (.bss:buffer_input_pdu)
+                  00003830    00000001     (.common:bit_rate_range)
+
+.data      0    00003834    00000020     UNINITIALIZED
+                  00003834    0000000c     rtsv7M3_T_le_eabi.lib : exit.obj (.data:$O1$$)
+                  00003840    00000008                           : _lock.obj (.data:$O1$$)
+                  00003848    00000008     maintest_slave.obj (.data)
+                  00003850    00000004     rtsv7M3_T_le_eabi.lib : stkdepth_vars.obj (.data)
+
+.const     0    00003854    00000014     
+                  00003854    00000014     sysctl.obj (.const:g_pulRCGCRegs)
+
+.cinit     0    00003968    00000044     
+                  00003968    0000001f     (.cinit..data.load) [load image, compression = rle]
+                  00003987    00000001     --HOLE-- [fill = 0]
+                  00003988    0000000b     (.cinit..bss.load) [load image, compression = rle]
+                  00003993    00000001     --HOLE-- [fill = 0]
+                  00003994    00000008     (__TI_handler_table)
+                  0000399c    00000010     (__TI_cinit_table)
+
+.init_array 
+*          0    00000020    00000000     UNINITIALIZED
+
+.stack     0    00003868    00000100     UNINITIALIZED
+                  00003868    00000100     --HOLE--
+
+MODULE SUMMARY
+
+       Module                     code   ro data   rw data
+       ------                     ----   -------   -------
+    ./Application/source/
+       maintest_slave.obj         404    0         4528   
+       Modbus_app.obj             3956   0         545    
+       Modbus_CAN.obj             1028   0         332    
+    +--+--------------------------+------+---------+---------+
+       Total:                     5388   0         5405   
+                                                          
+    ./F28M35H52C_System/driverlib/
+       sysctl.obj                 1226   20        0      
+       can.obj                    972    0         0      
+       gpio.obj                   358    0         0      
+       interrupt.obj              172    0         0      
+       watchdog.obj               36     0         0      
+    +--+--------------------------+------+---------+---------+
+       Total:                     2764   20        0      
+                                                          
+    /home/preetham/ti/ccsv6/tools/compiler/ti-cgt-arm_15.12.1.LTS/lib/rtsv7M3_T_le_eabi.lib
+       memcpy_t2.obj              156    0         0      
+       memset_t2.obj              122    0         0      
+       autoinit.obj               112    0         0      
+       copy_decompress_rle.obj    112    0         0      
+       exit.obj                   84     0         12     
+       cpy_tbl.obj                76     0         0      
+       boot.obj                   64     0         0      
+       _lock.obj                  20     0         8      
+       args_main.obj              24     0         0      
+       copy_decompress_none.obj   14     0         0      
+       pre_init.obj               4      0         0      
+       stkdepth_vars.obj          0      0         4      
+       mpu_init.obj               2      0         0      
+       startup.obj                2      0         0      
+    +--+--------------------------+------+---------+---------+
+       Total:                     792    0         24     
+                                                          
+       Stack:                     0      0         256    
+       Linker Generated:          0      66        0      
+    +--+--------------------------+------+---------+---------+
+       Grand Total:               8944   86        5685   
+
+
+LINKER GENERATED COPY TABLES
+
+__TI_cinit_table @ 0000399c records: 2, size/record: 8, table size: 16
+	.data: load addr=00003968, load size=0000001f bytes, run addr=00003834, run size=00000020 bytes, compression=rle
+	.bss: load addr=00003988, load size=0000000b bytes, run addr=0000231c, run size=00001515 bytes, compression=rle
+
+
+LINKER GENERATED HANDLER TABLE
+
+__TI_handler_table @ 00003994 records: 2, size/record: 4, table size: 8
+	index: 0, handler: __TI_decompress_rle24
+	index: 1, handler: __TI_decompress_none
+
+
+GLOBAL SYMBOLS: SORTED ALPHABETICALLY BY Name 
+
+address   name                             
+-------   ----                             
+00001e6d  C$$EXIT                          
+00001605  CANBitTimingSet                  
+00002255  CANEnable                        
+00000ba1  CANInit                          
+000021ad  CANIntEnable                     
+00000021  CANMessageSet                    
+00001e11  GPIODirModeSet                   
+000011b9  GPIOPadConfigSet                 
+00002129  GPIOPinTypeCAN                   
+0000214b  GPIOPinTypeGPIOOutput            
+0000216d  GPIOPinWrite                     
+00001061  IntEnable                        
+000021c5  Modbus_App_L_Msg_Set             
+00000ef9  Modbus_App_Manage_Request        
+0000218d  Modbus_App_Receive_Char          
+000021dd  Modbus_App_Send                  
+000022ed  Modbus_CAN_BroadCast_Get         
+00001ec1  Modbus_CAN_Controller            
+000022cd  Modbus_CAN_Delay                 
+000021f5  Modbus_CAN_Error_Management      
+00000519  Modbus_CAN_FixOutput             
+00001261  Modbus_CAN_Init                  
+00001b89  Modbus_CAN_ReceptionConfiguration
+000018b9  Modbus_CAN_SetBitRate            
+00002035  Modbus_CAN_to_App                
+000022f9  Modbus_GetMainState              
+0000220d  Modbus_SetMainState              
+00002305  Modbus_Slave_Communication       
+00001729  Modbus_Slave_Init                
+UNDEFED   SHT$$INIT_ARRAY$$Base            
+UNDEFED   SHT$$INIT_ARRAY$$Limit           
+00001571  SysCtlClockConfigGet             
+00001f11  SysCtlClockConfigSet             
+00000679  SysCtlClockDividersSet           
+00000211  SysCtlClockPllConfig             
+0000230d  SysCtlDelay                      
+00001fa9  SysCtlPeripheralEnable           
+000020f1  SysCtlPeripheralIsEnabled        
+00001699  SysCtlXPllClockDividerSet        
+000022a9  WatchdogReloadSet                
+000022bb  WatchdogRunning                  
+00003968  __STACK_END                      
+00000100  __STACK_SIZE                     
+0000399c  __TI_CINIT_Base                  
+000039ac  __TI_CINIT_Limit                 
+00003994  __TI_Handler_Table_Base          
+0000399c  __TI_Handler_Table_Limit         
+00001c6d  __TI_auto_init                   
+00003834  __TI_cleanup_ptr                 
+000022dd  __TI_decompress_none             
+00002313  __TI_decompress_rle24            
+00003838  __TI_dtors_ptr                   
+0000383c  __TI_enable_exit_profile_output  
+ffffffff  __TI_pprof_out_hndl              
+ffffffff  __TI_prof_data_size              
+ffffffff  __TI_prof_data_start             
+00003968  __TI_static_base__               
+00001935  __aeabi_memclr                   
+00001935  __aeabi_memclr4                  
+00001935  __aeabi_memclr8                  
+0000143d  __aeabi_memcpy                   
+0000143d  __aeabi_memcpy4                  
+0000143d  __aeabi_memcpy8                  
+00001937  __aeabi_memset                   
+00001937  __aeabi_memset4                  
+00001937  __aeabi_memset8                  
+ffffffff  __binit__                        
+ffffffff  __c_args__                       
+00000c83  __mpu_init                       
+00003868  __stack                          
+0000223d  _args_main                       
+00002075  _c_int00                         
+00003840  _lock                            
+000022a3  _nop                             
+0000229b  _register_lock                   
+00002295  _register_unlock                 
+0000125f  _system_post_cinit               
+00002319  _system_pre_init                 
+00003844  _unlock                          
+00001e71  abort                            
+ffffffff  binit                            
+00003830  bit_rate_range                   
+00001f5d  copy_in                          
+00001e79  exit                             
+0000039d  init                             
+00002225  main                             
+00003850  main_func_sp                     
+0000143d  memcpy                           
+0000193d  memset                           
+
+
+GLOBAL SYMBOLS: SORTED BY Symbol Address 
+
+address   name                             
+-------   ----                             
+00000021  CANMessageSet                    
+00000100  __STACK_SIZE                     
+00000211  SysCtlClockPllConfig             
+0000039d  init                             
+00000519  Modbus_CAN_FixOutput             
+00000679  SysCtlClockDividersSet           
+00000ba1  CANInit                          
+00000c83  __mpu_init                       
+00000ef9  Modbus_App_Manage_Request        
+00001061  IntEnable                        
+000011b9  GPIOPadConfigSet                 
+0000125f  _system_post_cinit               
+00001261  Modbus_CAN_Init                  
+0000143d  __aeabi_memcpy                   
+0000143d  __aeabi_memcpy4                  
+0000143d  __aeabi_memcpy8                  
+0000143d  memcpy                           
+00001571  SysCtlClockConfigGet             
+00001605  CANBitTimingSet                  
+00001699  SysCtlXPllClockDividerSet        
+00001729  Modbus_Slave_Init                
+000018b9  Modbus_CAN_SetBitRate            
+00001935  __aeabi_memclr                   
+00001935  __aeabi_memclr4                  
+00001935  __aeabi_memclr8                  
+00001937  __aeabi_memset                   
+00001937  __aeabi_memset4                  
+00001937  __aeabi_memset8                  
+0000193d  memset                           
+00001b89  Modbus_CAN_ReceptionConfiguration
+00001c6d  __TI_auto_init                   
+00001e11  GPIODirModeSet                   
+00001e6d  C$$EXIT                          
+00001e71  abort                            
+00001e79  exit                             
+00001ec1  Modbus_CAN_Controller            
+00001f11  SysCtlClockConfigSet             
+00001f5d  copy_in                          
+00001fa9  SysCtlPeripheralEnable           
+00002035  Modbus_CAN_to_App                
+00002075  _c_int00                         
+000020f1  SysCtlPeripheralIsEnabled        
+00002129  GPIOPinTypeCAN                   
+0000214b  GPIOPinTypeGPIOOutput            
+0000216d  GPIOPinWrite                     
+0000218d  Modbus_App_Receive_Char          
+000021ad  CANIntEnable                     
+000021c5  Modbus_App_L_Msg_Set             
+000021dd  Modbus_App_Send                  
+000021f5  Modbus_CAN_Error_Management      
+0000220d  Modbus_SetMainState              
+00002225  main                             
+0000223d  _args_main                       
+00002255  CANEnable                        
+00002295  _register_unlock                 
+0000229b  _register_lock                   
+000022a3  _nop                             
+000022a9  WatchdogReloadSet                
+000022bb  WatchdogRunning                  
+000022cd  Modbus_CAN_Delay                 
+000022dd  __TI_decompress_none             
+000022ed  Modbus_CAN_BroadCast_Get         
+000022f9  Modbus_GetMainState              
+00002305  Modbus_Slave_Communication       
+0000230d  SysCtlDelay                      
+00002313  __TI_decompress_rle24            
+00002319  _system_pre_init                 
+00003830  bit_rate_range                   
+00003834  __TI_cleanup_ptr                 
+00003838  __TI_dtors_ptr                   
+0000383c  __TI_enable_exit_profile_output  
+00003840  _lock                            
+00003844  _unlock                          
+00003850  main_func_sp                     
+00003868  __stack                          
+00003968  __STACK_END                      
+00003968  __TI_static_base__               
+00003994  __TI_Handler_Table_Base          
+0000399c  __TI_CINIT_Base                  
+0000399c  __TI_Handler_Table_Limit         
+000039ac  __TI_CINIT_Limit                 
+ffffffff  __TI_pprof_out_hndl              
+ffffffff  __TI_prof_data_size              
+ffffffff  __TI_prof_data_start             
+ffffffff  __binit__                        
+ffffffff  __c_args__                       
+ffffffff  binit                            
+UNDEFED   SHT$$INIT_ARRAY$$Base            
+UNDEFED   SHT$$INIT_ARRAY$$Limit           
+
+[89 symbols]
