@@ -269,74 +269,42 @@ unsigned char Modbus_OSL_Init (unsigned char Slave, enum Baud Baudrate,
     
     // Habilita los periféricos de la UART y los pins usados para las
     // comunicaciones. Se utiliza la UART1, que requiere pins del puerto GPIOD. 
-    //SysCtlPeripheralEnable(SYSCTL_PERIPH_UART1);
+
     SysCtlPeripheralEnable(SYSCTL_PERIPH_UART0);
-    //SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOD);
     SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOE);
     
     // Habilita las interrupciones del sistema.
     IntMasterEnable();
-    
-    //GPIOPinConfigure(GPIO_PD2_U1TX);
-    //GPIOPinConfigure(GPIO_PD3_U1RX);
 
     // Set GPIO E4 and E5 as UART pins.
     GPIOPinConfigure(GPIO_PE4_U0RX);
     GPIOPinConfigure(GPIO_PE5_U0TX);
 
     // Fija GPIO D2 y D3 como los pins de la UART1.
-    //GPIOPinTypeUART(GPIO_PORTD_BASE, GPIO_PIN_2 | GPIO_PIN_3);
     GPIOPinTypeUART(GPIO_PORTE_BASE, GPIO_PIN_4 | GPIO_PIN_5);
-
-    // Configure the UART for 115,200, 8-N-1 operation.
-    UARTConfigSetExpClk(UART0_BASE, SysCtlClockGet(SYSTEM_CLOCK_SPEED), 9600,
-                        (UART_CONFIG_WLEN_8 | UART_CONFIG_STOP_ONE |
-                         UART_CONFIG_PAR_NONE));
-    UARTFIFOLevelSet(UART0_BASE, UART_FIFO_TX1_8, UART_FIFO_RX1_8);
 
     switch(Modbus_OSL_Mode)
     {
       case MODBUS_OSL_MODE_RTU:
-        // Configura la UART1 para el Baudrate, 8-Par-1. SYSTEM_CLOCK_SPEED
-        /*UARTConfigSetExpClk(UART1_BASE, SysCtlClockGet(SYSTEM_CLOCK_SPEED), Modbus_OSL_Baudrate,
-                           (UART_CONFIG_WLEN_8 | UART_CONFIG_STOP_ONE |
-                            UART_CONFIG_PAR_NONE));*/
+    	   // Configure the UART for 9600, 8-N-1 operation.
+    	   UARTConfigSetExpClk(UART0_BASE, SysCtlClockGet(SYSTEM_CLOCK_SPEED), 9600,
+    	                        (UART_CONFIG_WLEN_8 | UART_CONFIG_STOP_ONE |
+    	                         UART_CONFIG_PAR_NONE));
+    	    //UARTFIFOLevelSet(UART0_BASE, UART_FIFO_TX1_8, UART_FIFO_RX1_8);
+
         break;
       case MODBUS_OSL_MODE_ASCII:
-                // Configura la UART1 para el Baudrate, 7-Par-1.
-        UARTConfigSetExpClk(UART1_BASE, SysCtlClockGet(SYSCTL_M3SSDIV_2), Modbus_OSL_Baudrate,
+           // Configura la UART1 para el Baudrate, 7-Par-1.
+           UARTConfigSetExpClk(UART1_BASE, SysCtlClockGet(SYSCTL_M3SSDIV_2), Modbus_OSL_Baudrate,
                            (UART_CONFIG_WLEN_7 | UART_CONFIG_STOP_ONE |
                             UART_CONFIG_PAR_EVEN));
         break;
     }
     
-    // Desactiva la cola FIFO de la UART1 para asegurar que las interrupciones 
-    // salten por cada carácter recibido.
-    //UARTFIFODisable(UART0_BASE);
-    //UARTFIFOEnable(UART0_BASE);
-    
-    // Habilita el puerto GPIO usado para el LED1.
-    //SYSCTL_RCGC2_R = SYSCTL_RCGC2_GPIOF;
-    //SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOF);
-    // Lectura aleatoria para fijar unos pocos ciclos al activar el periférico.
-    //volatile unsigned long ulLoop = SYSCTL_RCGC2_R;
-    // Habilita el pin GPIO para el LED (PF0) y fija la dirección como salida.
-    //GPIO_PORTF_DIR_R = 0x01;
-    //HWREG(GPIO_PORTF_BASE + GPIO_O_DIR) = 0x01;
-    //GPIO_PORTF_DEN_R = 0x01;
-    //HWREG(GPIO_PORTF_BASE + GPIO_O_DEN) = 0x01;
-    
     // Set up the Pin for LED3
     SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOC);
     GPIOPinTypeGPIOOutput(GPIO_PORTC_BASE, GPIO_PIN_7);
     GPIOPinWrite(GPIO_PORTC_BASE, GPIO_PIN_7, ~0);
-
-    // Habilita la interrupción de la UART, para Recepción y error de paridad.
-    //UARTIntEnable(UART1_BASE, UART_INT_RX | UART_INT_PE);
-
-    /*IntRegister(INT_UART1, UART1IntHandler);
-    IntEnable(INT_UART1);
-    UARTIntEnable(UART1_BASE, UART_INT_RX | UART_INT_PE);*/
 
     // Enable the UART interrupt.
     IntRegister(INT_UART0, UART0IntHandler);
@@ -372,6 +340,8 @@ void
 UART0IntHandler(void)
 {
 	GPIOPinWrite(GPIO_PORTC_BASE, GPIO_PIN_7, 0);
+	static long buf[255] = {0};
+	static uint16_t i = 0;
 
     unsigned long ulStatus;
 
@@ -383,9 +353,15 @@ UART0IntHandler(void)
     // Clear the asserted interrupts.
     UARTIntClear(UART0_BASE, ulStatus);
 
-    value = (char)UARTCharGetNonBlocking(UART0_BASE);
+    value = UARTCharGetNonBlocking(UART0_BASE);
 
-    Modbus_OSL_RTU_UART(value);
+    buf[i] = value;
+    i++;
+
+    if(i == 255)
+    {i = 0;}
+
+    //Modbus_OSL_RTU_UART();
     // Loop while there are characters in the receive FIFO.
     while(UARTCharsAvail(UART0_BASE))
     {
@@ -409,12 +385,8 @@ void UART1IntHandler(void)
 {
     unsigned long ulStatus;
     
-    GPIOPinWrite(GPIO_PORTC_BASE, GPIO_PIN_7, 0);
-
     // Enciende el Led1.
-    //GPIO_PORTF_DATA_R |= 0x01;
-    
-    //HWREG(GPIO_PORTF_BASE + GPIO_O_DATA) |= 0x01;
+    GPIOPinWrite(GPIO_PORTC_BASE, GPIO_PIN_7, 0);
 
     while(UARTCharsAvail(UART0_BASE))
     {
@@ -449,8 +421,6 @@ void UART1IntHandler(void)
     }
     
     // Apaga el LED1.
-    //GPIO_PORTF_DATA_R &= ~(0x01);
-    //HWREG(GPIO_PORTF_BASE + GPIO_O_DATA) &= ~(0x01);
     GPIOPinWrite(GPIO_PORTC_BASE, GPIO_PIN_7, ~0);
 }
 

@@ -484,23 +484,10 @@ void Modbus_OSL_RTU_35T (void)
 //! >     mera cuestión de robustez en la programación se descarta el carácter.
 //! \sa Modbus_OSL_RTU_Msg, Modbus_OSL_RTU_Index, Modbus_OSL_State 
 //! \sa Modbus_OSL_Frame_Set, Modbus_OSL_Frame 
-void Modbus_OSL_RTU_UART(long p_value)
+void Modbus_OSL_RTU_UART(void)
 {
-	static long value[255] = {0};
 
-	//Modbus_OSL_RTU_Msg[Modbus_OSL_RTU_Index]=UARTCharGetNonBlocking(UART0_BASE);
-	value[Modbus_OSL_RTU_Index] = p_value/*UARTCharGetNonBlocking(UART0_BASE)*/;
-	IntDisable(INT_TIMER0A);
-	TimerEnable(TIMER0_BASE, TIMER_A);
-	Modbus_OSL_RTU_Index++;
-	IntEnable(INT_TIMER0A);
-
-	if(Modbus_OSL_RTU_Index == 255)
-	{
-		Modbus_OSL_RTU_Index = 0;
-	}
-
-  /*switch (Modbus_OSL_State_Get())
+  switch (Modbus_OSL_State_Get())
   {         
     case MODBUS_OSL_RTU_INITIAL:    
       //Debug_OSL_RTU_Initial++;
@@ -510,7 +497,6 @@ void Modbus_OSL_RTU_UART(long p_value)
                 
     case MODBUS_OSL_RTU_IDLE:
       //Debug_OSL_RTU_Idle++;
-      value = UARTCharGetNonBlocking(UART0_BASE);
       Modbus_OSL_RTU_Msg[Modbus_OSL_RTU_Index]=UARTCharGetNonBlocking(UART0_BASE);
       IntDisable(INT_TIMER1A);
       IntDisable(INT_TIMER0A);
@@ -544,7 +530,7 @@ void Modbus_OSL_RTU_UART(long p_value)
       //Debug_OSL_RTU_Emission++;
       UARTCharGetNonBlocking(UART0_BASE);
       break;
-  }*/
+  }
 }
 //! @}
 

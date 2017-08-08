@@ -14,7 +14,7 @@ unsigned char Modbus_OSL_RTU_Control_CRC(void);
 void Modbus_OSL_RTU_Init (void); 
 void Modbus_OSL_RTU_15T (void);
 void Modbus_OSL_RTU_35T (void);
-void Modbus_OSL_RTU_UART(long p_value);
+void Modbus_OSL_RTU_UART(void);
 
 uint32_t Modbus_OSL_RTU_Get_Timeout_35 (void);
 unsigned char Modbus_OSL_RTU_Char_Get(unsigned char i);

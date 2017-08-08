@@ -8,7 +8,6 @@
 #include "driverlib/systick.h"
 #include "driverlib/interrupt.h"
 #include "driverlib/uart.h"
-//#include "inc/lm3s2110.h"
 #include "Modbus_App.h"
 
 void init(void);
@@ -27,11 +26,6 @@ volatile unsigned long ulLoop;
       
 void main(void)
 {        
-    //int i=0;
-	//SysCtlClockSet(SYSCTL_SYSDIV_5 | SYSCTL_USE_PLL | SYSCTL_XTAL_8MHZ |  SYSCTL_OSC_MAIN);
-
-    //SysCtlPeripheralDisable(SYSCTL_PERIPH_WDOG0);
-    //SysCtlPeripheralDisable(SYSCTL_PERIPH_WDOG1);
 
 	SysCtlClockConfigSet(SYSCTL_USE_PLL | (SYSCTL_SPLLIMULT_M & 0xF) |
             SYSCTL_SYSDIV_1 | SYSCTL_M3SSDIV_2 |
@@ -43,23 +37,17 @@ void main(void)
 
         while(1)
         {
-
-        	//volatile unsigned int MRESC   = *(unsigned int*)0x400FE05C;
-        	//if((MRESC & 0x8))
-        	//{
-        	//	MRESC = MRESC & (4 << 0);
-        	//}
-                  Modbus_Slave_Communication();
+        	Modbus_Slave_Communication();
         }
 }
 
 //APP INIT
 void init(void)
 {      
-      unsigned char slave = 85, num;
+      unsigned char slave = 1, num;
       uint16_t i;
-      //enum Modbus_CAN_BitRate bit_rate;
-      //bit_rate = MODBUS_1MBPS;
+   /* enum Modbus_CAN_BitRate bit_rate;
+      bit_rate = MODBUS_1MBPS; */
       num = 1;
       for(i=0; i < coils_amount; i++)
       {                  
